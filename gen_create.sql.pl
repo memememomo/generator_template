@@ -6,7 +6,6 @@ use Encode;
 use File::Basename;
 use Text::Xslate;
 
-my $tmpl = dirname(__FILE__) . '/tmpl/create.sql';
 
 my $table_name = $ARGV[0];
 my $comment = $ARGV[1];
@@ -17,9 +16,10 @@ if (!$table_name || !$comment) {
 
 my $tx = Text::Xslate->new(
     syntax => 'TTerse',
+    path => dirname(__FILE__) . '/tmpl'
 );
 
-my $output = $tx->render($tmpl, {
+my $output = $tx->render('create.sql', {
     table_name => $table_name,
     comment    => $comment,
 });
